@@ -1,4 +1,4 @@
-﻿public class RssNewsFeeder
+﻿public class RssNewsFeederModel
 {
 	public string Title { get; set; }
 

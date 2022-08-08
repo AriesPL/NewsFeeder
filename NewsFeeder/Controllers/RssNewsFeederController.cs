@@ -12,7 +12,7 @@ namespace NewsFeeder.Controllers
 		{
 			string rssFeedUrl = "https://habr.com/ru/rss/interesting/";
 
-			List<RssNewsFeeder> _feeds = new List<RssNewsFeeder>();
+			List<RssNewsFeederModel> _feeds = new List<RssNewsFeederModel>();
 
 			XDocument xDoc = new XDocument();
 			xDoc = XDocument.Load(rssFeedUrl);
@@ -30,11 +30,11 @@ namespace NewsFeeder.Controllers
 			{
 				foreach (var item in items)
 				{
-					RssNewsFeeder rssFeed = new RssNewsFeeder
+					RssNewsFeederModel rssFeed = new RssNewsFeederModel
 					{
 						Title = item.title,
 						Link = item.link,
-						PubDate = item.pubData,
+						PubDate = DateFormat.GetTime(item.pubData),
 						Description = HtmlUtilities.ConvertToPlainText(item.description),
                         Description2 = item.description 
                     };

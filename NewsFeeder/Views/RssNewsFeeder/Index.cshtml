@@ -1,0 +1,77 @@
+﻿<h1>Свежие новости.</h1>
+
+Форматирование статей
+
+@if(!Model.IsFormated)
+{
+    <button>
+        <a href="?isFormated=true">Включить</a>
+    </button>
+}
+else
+{
+    <button>
+        <a href="?isFormated=false">Выключить</a>
+    </button>
+}
+<head>
+
+<style>
+   table { 
+    table-layout:fixed;
+    width: 100%; /* Ширина таблицы */
+    border: 4px double black; /* Рамка вокруг таблицы */
+    border-collapse: collapse; /* Отображать только одинарные линии */
+   }
+   th { 
+    text-align: left; /* Выравнивание по левому краю */
+    background: #ccc; /* Цвет фона ячеек */
+    padding: 5px; /* Поля вокруг содержимого ячеек */
+    border: 1px solid black; /* Граница вокруг ячеек */
+   }
+   td { 
+    padding: 5px; /* Поля вокруг содержимого ячеек */
+    border: 1px solid black; /* Граница вокруг ячеек */
+    overflow: hidden;
+    /*white-space: nowrap;*/
+     text-overflow: ellipsis;
+   }
+ </style>
+</head>
+
+<table>
+    <thead>
+        <tr>
+            <td><h3>Статья</h3></td>
+            <td><h3>Описание</h3></td>
+            <td><h3>Дата публикации</h3></td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Feeders)
+       {
+           <tr>
+               <td>
+                   <a href="@item.Link">
+                      <h4>@item.Title</h4>
+                   </a>
+               </td>
+               @if (!Model.IsFormated)
+               {
+                   <td>
+                        @item.Description
+                   </td>
+               }
+               else
+               {
+                    <td>
+                        @(new HtmlString(@item.Description2))
+                   </td>
+               }
+               <td>@item.PubDate</td>
+           </tr>
+       }
+    </tbody>
+</table>
+
+

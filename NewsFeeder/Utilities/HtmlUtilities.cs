@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using HtmlAgilityPack;
 
-namespace NewsFeeder.Controllers
+namespace NewsFeeder.Utilities
 {
 	public class HtmlUtilities
 	{

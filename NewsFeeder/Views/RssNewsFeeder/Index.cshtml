@@ -1,80 +1,57 @@
 ﻿@{
     ViewData["Title"] = "RssNews";
 }
+<style>
+    img {
+        width: 100%;
+    }
+</style>
 
 <h1>Свежие новости.</h1>
 
-Форматирование статей
-
-@if(!Model.IsFormated)
+@if (Model.Feeders.Count == 0)
 {
-    <button>
-        <a href="?isFormated=true">Включить</a>
-    </button>
+    <h4>Нечего тут глядеть.</h4>
 }
 else
 {
-    <button>
-        <a href="?isFormated=false">Выключить</a>
-    </button>
-}
-<head>
+    <p>Форматирование статей</p>
+    @if (!Model.IsFormated)
+    {
+        <button>
+            <a href="?isFormated=true">Включить</a>
+        </button>
+    }
+    else
+    {
+        <button>
+            <a href="?isFormated=false">Выключить</a>
+        </button>
+    }
 
-<style>
-   table { 
-    table-layout:fixed;
-    width: 100%; /* Ширина таблицы */
-    border: 4px double black; /* Рамка вокруг таблицы */
-    border-collapse: collapse; /* Отображать только одинарные линии */
-   }
-   th { 
-    text-align: left; /* Выравнивание по левому краю */
-    background: #ccc; /* Цвет фона ячеек */
-    padding: 5px; /* Поля вокруг содержимого ячеек */
-    border: 1px solid black; /* Граница вокруг ячеек */
-   }
-   td { 
-    padding: 5px; /* Поля вокруг содержимого ячеек */
-    border: 1px solid black; /* Граница вокруг ячеек */
-    overflow: hidden;
-    text-overflow: ellipsis;
-   }
- </style>
-</head>
-
-<table>
-    <thead>
-        <tr>
-            <td><h3>Статья</h3></td>
-            <td><h3>Описание</h3></td>
-            <td><h3>Дата публикации</h3></td>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Feeders)
-       {
-           <tr>
-               <td>
-                   <a href="@item.Link">
-                      <h4>@item.Title</h4>
-                   </a>
-               </td>
-               @if (!Model.IsFormated)
-               {
-                   <td>
-                        @item.Description
-                   </td>
-               }
-               else
-               {
+    <table>
+        <thead>
+            <tr>
+                <td><h3>Статья</h3></td>
+                <td><h3>Описание</h3></td>
+                <td><h3>Дата публикации</h3></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Feeders)
+            {
+                <tr>
                     <td>
-                        @(new HtmlString(@item.Description2))
-                   </td>
-               }
-               <td>@item.PubDate</td>
-           </tr>
-       }
-    </tbody>
-</table>
-
-
+                        <a href="@item.Link">
+                            <h4>@item.Title</h4>
+                        </a>
+                    </td>
+                        <td>
+                            @(new HtmlString(@item.Description))
+                        </td>
+                    <td>@item.PublicationDate</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
